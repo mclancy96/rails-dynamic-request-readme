@@ -14,7 +14,6 @@ get 'about', to: "static#about"
 This is mapped to the `static` controller and its `about` action, which renders
 the `about.html.erb` view template.
 
-
 ## Dynamic Requests
 
 According to REST, if we want to retrieve the post with an id of `42`, we should
@@ -23,15 +22,15 @@ routes file for each post... but that would quickly get ridiculous. You would
 have to modify your web server every time someone posts! Enter: dynamic routes.
 A breakdown of the dynamic route process flow is below:
 
-1.  The `routes.rb` file takes in the request and processes it like normal,
+1. The `routes.rb` file takes in the request and processes it like normal,
     except this time it also parses the `42` as a parameter and passes it to the
     posts controller.
 
-2.  From that point, the controller action that you write will parse the `42`
+2. From that point, the controller action that you write will parse the `42`
     parameter and run a query on the Post model, storing the result in an instance
     variable.
 
-3.  Finally, the controller passes the instance variable to the associated view,
+3. Finally, the controller passes the instance variable to the associated view,
     which renders details of that specific post record for the client.
 
 In review, what's the difference between static and dynamic routes?
@@ -67,8 +66,8 @@ describe 'navigate' do
 end
 ```
 
-Running `rspec` gives us an expected error of: `ActionController::RoutingError: No route matches [GET] "/posts/1"`. To correct this error, let's draw a route in
-_config/routes.rb_ that maps to a show action in the PostsController:
+Running `bin/rspec` gives us an expected error of: `ActionController::RoutingError: No route matches [GET] "/posts/1"`. To correct this error, let's draw a route in
+`config/routes.rb` that maps to a show action in the PostsController:
 
 ```ruby
 get 'posts/:id', to: 'posts#show'
@@ -94,12 +93,12 @@ class PostsController < ApplicationController
 end
 ```
 
-Run the tests again. Now we see a failure saying that we are missing the
+Run the tests again with `bin/rspec`. Now we see a failure saying that we are missing the
 `posts/show` view template. Let's fix that by creating a `posts` folder in the
 `views` directory and creating a `show.html.erb` file in the new `views/posts`
 directory.
 
-Running the tests now shows that we're all green, which means that the request
+Running the tests now with `bin/rspec` shows that we're all green, which means that the request
 will be properly routed through the controller and view and returns an HTTP
 status code of `200`.
 
@@ -204,4 +203,4 @@ We will go into detail on what the `resources` method does in a future lesson.
 For right now, just know that it deals with the seven key RESTful routes. In
 this case, we limited it to only make the `show` action available.
 
-Run the tests for a final time, and they should still be passing. Nice work!
+Run the tests for a final time with `bin/rspec`, and they should still be passing. Nice work!
